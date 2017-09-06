@@ -2,46 +2,58 @@
 module.exports = app => {
   const sequelize = app.Sequelize;
   const entity = {
-        id: {
+        Id: {
             type: sequelize.INTEGER(5).UNSIGNED,
             allowNull: false,
+            field:'id',
             primaryKey:true,
+            autoIncrement:true
         },
-        username: {
+        Username: {
             type: sequelize.STRING(50),
             allowNull: false,
+            field:'username',
             defaultValue:'',
         },
-        account: {
+        Account: {
             type: sequelize.STRING(50),
             allowNull: false,
+            field:'account',
             defaultValue:'',
         },
-        password: {
+        Password: {
             type: sequelize.STRING(50),
             allowNull: false,
+            field:'password',
             defaultValue:'',
         },
-        status: {
+        Status: {
             type: sequelize.INTEGER(1).UNSIGNED,
             allowNull: false,
+            field:'status',
             defaultValue:'1',
         },
-        last_login_time: {
+        LastLoginTime: {
             type: sequelize.STRING(50),
             allowNull: true,
+            field:'last_login_time',
+            defaultValue:'',
         },
-        last_login_ip: {
+        LastLoginIp: {
             type: sequelize.STRING(20),
             allowNull: true,
+            field:'last_login_ip',
+            defaultValue:'',
         },
-        createdAt: {
+        CreatedAt: {
             type: sequelize.DATE,
             allowNull: false,
+            field:'createdAt',
         },
-        updatedAt: {
+        UpdatedAt: {
             type: sequelize.DATE,
             allowNull: false,
+            field:'updatedAt',
         } 
   }
   const AdminUser = app.model.define('AdminUser', entity, {

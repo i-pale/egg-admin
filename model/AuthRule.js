@@ -2,54 +2,70 @@
 module.exports = app => {
   const sequelize = app.Sequelize;
   const entity = {
-        id: {
+        Id: {
             type: sequelize.INTEGER(8).UNSIGNED,
             allowNull: false,
+            field:'id',
             primaryKey:true,
+            autoIncrement:true
         },
-        name: {
+        Name: {
             type: sequelize.STRING(80),
             allowNull: false,
+            field:'name',
+            defaultValue:'',
         },
-        title: {
+        Title: {
             type: sequelize.STRING(20),
             allowNull: false,
+            field:'title',
+            defaultValue:'',
         },
-        type: {
+        Type: {
             type: sequelize.INTEGER(1).UNSIGNED,
             allowNull: false,
+            field:'type',
             defaultValue:'1',
         },
-        status: {
+        Status: {
             type: sequelize.INTEGER(1),
             allowNull: false,
+            field:'status',
             defaultValue:'1',
         },
-        pid: {
+        Pid: {
             type: sequelize.INTEGER(5).UNSIGNED,
             allowNull: false,
+            field:'pid',
+            defaultValue:'1',
         },
-        icon: {
+        Icon: {
             type: sequelize.STRING(50),
             allowNull: true,
+            field:'icon',
             defaultValue:'',
         },
-        sort: {
+        Sort: {
             type: sequelize.INTEGER(4).UNSIGNED,
             allowNull: false,
+            field:'sort',
+            defaultValue:'1',
         },
-        condition: {
+        Condition: {
             type: sequelize.CHAR(100),
             allowNull: true,
+            field:'condition',
             defaultValue:'',
         },
-        createdAt: {
+        CreatedAt: {
             type: sequelize.DATE,
             allowNull: false,
+            field:'createdAt',
         },
-        updatedAt: {
+        UpdatedAt: {
             type: sequelize.DATE,
             allowNull: false,
+            field:'updatedAt',
         } 
   }
   const AuthRule = app.model.define('AuthRule', entity, {

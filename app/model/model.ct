@@ -1,33 +1,44 @@
-<Template output='./model'  asfsaf="fsaf">
+<Template output='./app/model'  asfsaf="fsaf">
 /* jshint indent: 2 */
- {{#let M_tableName=camelCase(tableName); console.log(M_tableName)}}
+{{#const foreignKeys=[] }}
 module.exports = app => {
   const sequelize = app.Sequelize;
   const entity = {
+    {{#let MtableName=camelCase(tableName); }}
     {{#columns.forEach(function(column,index){  }}
-        {{column.name}}: {
+        {{camelCase(column.name)}}: {
             type: sequelize.{{column.CodeType}},
             allowNull: {{column.allowNull}},
+            field:'{{column.name}}',
             {{column.defaultValue==null?"":"defaultValue:"+column.defaultValue+","}}
             {{column.primaryKey?"primaryKey:"+column.primaryKey+",":""}}
             {{column.autoIncrement?"autoIncrement:"+column.autoIncrement:""}}
-            {{#if(column.foreignKey){ }}
-              references: {
+            {{#if(column.foreignKey){ foreignKeys.push(column.foreignKey);}}
+             // references: {
                   // 引用另一个模型
-                  model: app.model+{{column.foreignKey['target_table']}},
+                  //model: app.model.{{column.foreignKey['target_table']}},
                   // 连接模型的列表
-                  key: {{column.foreignKey['target_column']}},
+                  //key: '{{column.foreignKey['target_column']}}',
                   // 强制使用外键约束，仅适用于 PostgreSQL
-                    //deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
-                }
+                  //deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+                //}
             {{# } }}
         }{{index==(columns.length-1)?'':','}}
       {{# }); }} 
   }
-  const {{M_tableName}} = app.model.define('{{M_tableName}}', entity, {
+  const {{MtableName}} = app.model.define('{{MtableName}}', entity, {
     tableName: '{{tableName}}'
   });
-  {{M_tableName}}.getModel=model=>{
+  {{#if(foreignKeys.length==2){
+    let target_table=[camelCase(foreignKeys[0]['target_table']),camelCase(foreignKeys[1]['target_table'])];
+    let field=[foreignKeys[0]['source_column'],foreignKeys[1]['source_column']];
+  }}
+  {{MtableName}}.associate=()=>{
+      app.model.{{target_table[0]}}.belongsToMany(app.model.{{target_table[1]}},{foreignKey:'{{ field[0] }}',through:'{{ tableName }}' });
+      app.model.{{target_table[1]}}.belongsToMany(app.model.{{target_table[0]}},{foreignKey:'{{ field[1] }}',through:'{{ tableName }}' });
+  }
+  {{# } }}
+  {{MtableName}}.getModel=model=>{
 							if(typeof model!=="object"){
 								throw new  Error("请求参数错误");
 								return false;
@@ -40,6 +51,6 @@ module.exports = app => {
 							}
 						  return newobj;
 						}
-  return {{M_tableName}};
+  return {{MtableName}};
 };
 </Template>

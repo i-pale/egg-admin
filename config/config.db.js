@@ -5,6 +5,7 @@ module.exports = {
     port: '3306',
     username: 'root',
     password: 'Jn597912',
+    timezone: "+08:00",
     define: {
         paranoid: false,
         //timestamps: false
