@@ -1,11 +1,10 @@
 <Template output='./model'  asfsaf="fsaf">
 /* jshint indent: 2 */
-
+ {{#let M_tableName=camelCase(tableName); console.log(M_tableName)}}
 module.exports = app => {
   const sequelize = app.Sequelize;
   const entity = {
     {{#columns.forEach(function(column,index){  }}
-    {{# let M_tableName=camelCase(tableName); console.log(M_tableName)}}
         {{column.name}}: {
             type: sequelize.{{column.CodeType}},
             allowNull: {{column.allowNull}},
