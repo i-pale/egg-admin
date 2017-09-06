@@ -1,0 +1,46 @@
+<Template output='./model'  asfsaf="fsaf">
+/* jshint indent: 2 */
+
+module.exports = app => {
+  const sequelize = app.Sequelize;
+  const entity = {
+    {{#columns.forEach(function(column,index){  }}
+    {{# let M_tableName=camelCase(tableName); console.log(M_tableName)}}
+        {{column.name}}: {
+            type: sequelize.{{column.CodeType}},
+            allowNull: {{column.allowNull}},
+            {{column.defaultValue==null?"":"defaultValue:"+column.defaultValue+","}}
+            {{column.primaryKey?"primaryKey:"+column.primaryKey+",":""}}
+            {{column.autoIncrement?"autoIncrement:"+column.autoIncrement:""}}
+            {{#if(column.foreignKey){ }}
+              references: {
+                  // 引用另一个模型
+                  model: app.model+{{column.foreignKey['target_table']}},
+                  // 连接模型的列表
+                  key: {{column.foreignKey['target_column']}},
+                  // 强制使用外键约束，仅适用于 PostgreSQL
+                    //deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE
+                }
+            {{# } }}
+        }{{index==(columns.length-1)?'':','}}
+      {{# }); }} 
+  }
+  const {{M_tableName}} = app.model.define('{{M_tableName}}', entity, {
+    tableName: '{{tableName}}'
+  });
+  {{M_tableName}}.getModel=model=>{
+							if(typeof model!=="object"){
+								throw new  Error("请求参数错误");
+								return false;
+							  }
+							let newobj={};
+							for (var key in model) {
+								if (entity.hasOwnProperty(key)) {
+									newobj[key]=model[key];
+								}
+							}
+						  return newobj;
+						}
+  return {{M_tableName}};
+};
+</Template>

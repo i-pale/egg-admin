@@ -20,10 +20,12 @@ module.exports = app => {
         type: {
             type: sequelize.INTEGER(1).UNSIGNED,
             allowNull: false,
+            defaultValue:'1',
         },
         status: {
             type: sequelize.INTEGER(1),
             allowNull: false,
+            defaultValue:'1',
         },
         pid: {
             type: sequelize.INTEGER(5).UNSIGNED,
@@ -32,6 +34,7 @@ module.exports = app => {
         icon: {
             type: sequelize.STRING(50),
             allowNull: true,
+            defaultValue:'',
         },
         sort: {
             type: sequelize.INTEGER(4).UNSIGNED,
@@ -40,6 +43,7 @@ module.exports = app => {
         condition: {
             type: sequelize.CHAR(100),
             allowNull: true,
+            defaultValue:'',
         } 
   }
   const auth_rule = app.model.define('auth_rule', entity, {

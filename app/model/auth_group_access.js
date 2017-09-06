@@ -5,28 +5,23 @@ module.exports = app => {
   const entity = {
         uid: {
             type: sequelize.INTEGER(8).UNSIGNED,
-            allowNull: false,
         },
-        group_id: {
+        gid: {
             type: sequelize.INTEGER(8).UNSIGNED,
-            allowNull: false,
-        } 
+        }
   }
   const auth_group_access = app.model.define('auth_group_access', entity, {
     tableName: 'auth_group_access'
   });
-  auth_group_access.getModel=model=>{
-							if(typeof model!=="object"){
-								throw new  Error("请求参数错误");
-								return false;
-							  }
-							let newobj={};
-							for (var key in model) {
-								if (entity.hasOwnProperty(key)) {
-									newobj[key]=model[key];
-								}
-							}
-						  return newobj;
-						}
+  auth_group_access.associate = function (){
+        app.model.AdminUser.belongsToMany(app.model.AuthGroup, { //一对多  
+            foreignKey: 'uid', //中间表的关联外键  
+            through: 'auth_group_access' //中间表的model  
+        })
+        app.model.AuthGroup.belongsToMany(app.model.AdminUser, { //一对多  
+            foreignKey: 'gid', //中间表的关联外键 
+            through: 'auth_group_access' //中间表的model
+        })
+    }
   return auth_group_access;
 };
