@@ -5,9 +5,11 @@ module.exports = {
     port: '3306',
     username: 'root',
     password: 'Jn597912',
-    timezone: "+08:00",
+    timezone: "+08:00",//当地时间
     define: {
-        paranoid: false,
-        //timestamps: false
+        //paranoid: false,//软件删除
+        timestamps: false,//添加删除/更新时间
+        underscored: true, //驼峰命名
+        //version:false,//添加版本
     }
 }

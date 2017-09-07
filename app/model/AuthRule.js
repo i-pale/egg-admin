@@ -1,78 +1,83 @@
-/* jshint indent: 2 */
+/*
+ * @Author: 灰白 
+ * @Date: 2017-09-07 12:03:58 
+ * @Last Modified by: 灰白
+ * @Last Modified time: 2017-09-07 16:44:23
+ */
 module.exports = app => {
-    const sequelize = app.Sequelize;
-    const entity = {
-        Id: {
+  const sequelize = app.Sequelize;
+  const entity = {
+        id: {
             type: sequelize.INTEGER(8).UNSIGNED,
             allowNull: false,
-            field: 'id',
-            primaryKey: true,
-            autoIncrement: true
+            field:'id',
+            primaryKey:true,
+            autoIncrement:true
         },
-        Name: {
+        name: {
             type: sequelize.STRING(80),
             allowNull: false,
-            field: 'name',
-            defaultValue: '',
+            field:'name',
+            defaultValue:'',
         },
-        Title: {
+        title: {
             type: sequelize.STRING(20),
             allowNull: false,
-            field: 'title',
-            defaultValue: '',
+            field:'title',
+            defaultValue:'',
         },
-        Type: {
+        type: {
             type: sequelize.INTEGER(1).UNSIGNED,
             allowNull: false,
-            field: 'type',
-            defaultValue: '1',
+            field:'type',
+            defaultValue:'1',
         },
-        Status: {
+        status: {
             type: sequelize.INTEGER(1),
             allowNull: false,
-            field: 'status',
-            defaultValue: '1',
+            field:'status',
+            defaultValue:'1',
         },
-        Pid: {
+        pid: {
             type: sequelize.INTEGER(5).UNSIGNED,
             allowNull: false,
-            field: 'pid',
-            defaultValue: '1',
+            field:'pid',
+            defaultValue:'1',
         },
-        Icon: {
+        icon: {
             type: sequelize.STRING(50),
             allowNull: true,
-            field: 'icon',
-            defaultValue: '',
+            field:'icon',
+            defaultValue:'',
         },
-        Sort: {
+        sort: {
             type: sequelize.INTEGER(4).UNSIGNED,
             allowNull: false,
-            field: 'sort',
-            defaultValue: '1',
+            field:'sort',
+            defaultValue:'1',
         },
-        Condition: {
+        condition: {
             type: sequelize.CHAR(100),
             allowNull: true,
-            field: 'condition',
-            defaultValue: '',
-        }
-    }
-    const AuthRule = app.model.define('AuthRule', entity, {
-        tableName: 'auth_rule'
-    });
-    AuthRule.getModel = model => {
-        if (typeof model !== "object") {
-            throw new Error("请求参数错误");
-            return false;
-        }
-        let newobj = {};
-        for (var key in model) {
-            if (entity.hasOwnProperty(key)) {
-                newobj[key] = model[key];
-            }
-        }
-        return newobj;
-    }
-    return AuthRule;
+            field:'condition',
+            defaultValue:'',
+        } 
+  }
+  const AuthRule = app.model.define('AuthRule', entity, {
+    tableName: 'auth_rule'
+  });
+  AuthRule.getModel=model=>{
+							if(typeof model!=="object"){
+								throw new  Error("请求参数错误");
+								return false;
+							  }
+							let newobj={};
+							for (var key in model) {
+								if (entity.hasOwnProperty(key)) {
+									newobj[key]=model[key];
+								}
+							}
+						  return newobj;
+						}
+  return AuthRule;
 };

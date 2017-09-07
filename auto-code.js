@@ -10,7 +10,7 @@ const config = {
         skipTables: null,
         camelCase: false,
         schema: null,
-        'Templates': './app/model',
+        'Templates': './codetpl',
         codetype: "js",
         camelCase:true
     }

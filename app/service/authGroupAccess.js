@@ -5,19 +5,19 @@
  * @Last Modified time: 2017-09-07 14:04:25
  */
 module.exports = app => {
-    class AdminUser extends app.Service {
+    class AuthGroupAccess extends app.Service {
         * list({
             offset = 0,
             limit = 10,
         }) {
-            return yield this.ctx.model.AdminUser.findAndCountAll({
+            return yield this.ctx.model.AuthGroupAccess.findAndCountAll({
                 offset,
                 limit
             });
         }
 
         * find(id) {
-            const model = yield this.ctx.model.AdminUser.findById(id);
+            const model = yield this.ctx.model.AuthGroupAccess.findById(id);
             if (!model) {
                 this.ctx.throw(404, 'model not found');
             }
@@ -25,14 +25,14 @@ module.exports = app => {
         }
 
         * create(model) {
-            return yield this.ctx.model.AdminUser.create(model);
+            return yield this.ctx.model.AuthGroupAccess.create(model);
         }
 
         * update({
             id,
             updates
         }) {
-            const model = yield this.ctx.model.AdminUser.findById(id);
+            const model = yield this.ctx.model.AuthGroupAccess.findById(id);
             if (!model) {
                 this.ctx.throw(404, 'model not found');
             }
@@ -40,12 +40,12 @@ module.exports = app => {
         }
 
         * del(id) {
-            const model = yield this.ctx.model.AdminUser.findById(id);
+            const model = yield this.ctx.model.AuthGroupAccess.findById(id);
             if (!model) {
                 this.ctx.throw(404, 'model not found');
             }
             return model.destroy();
         }
     }
-    return AdminUser;
+    return AuthGroupAccess;
 };
