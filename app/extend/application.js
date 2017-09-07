@@ -1,7 +1,8 @@
 module.exports = {
-    Initialization: function (app) {
+    Initialization: function(app) {
         let Encrypt = require('../../lib/util').Encrypt;
-        app.beforeStart(function* () {
+        app.beforeStart(function*() {
+            yield require("../../webroot/build/egg")(app);
             yield app.model.sync({
                 force: true
             });
@@ -139,14 +140,14 @@ module.exports = {
         });
         class CustomController extends app.Controller {
             success(result) {
-                this.ctx.body = {
-                    success: true,
-                    result,
-                };
-            }
-            *view(model){
-                yield this.ctx.render('index.html', model);
-            }
+                    this.ctx.body = {
+                        success: true,
+                        result,
+                    };
+                } *
+                view(model) {
+                    yield this.ctx.render('index.html', model);
+                }
             err(message) {
                 this.ctx.body = {
                     success: false,
