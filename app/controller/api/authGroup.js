@@ -2,11 +2,12 @@
  * @Author: 灰白 
  * @Date: 2017-09-07 12:03:58 
  * @Last Modified by: 灰白
- * @Last Modified time: 2017-09-07 14:03:57
+ * @Last Modified time: 2017-09-08 10:28:42
  */
 module.exports = app => {
   return class AuthGroupController extends app.Controller {
     * list() {
+      console.log("***************************")
       try{
         const ctx = this.ctx;
         this.success(yield ctx.service.AuthGroup.list(ctx.query))
