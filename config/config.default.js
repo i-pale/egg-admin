@@ -2,7 +2,7 @@
 var path = require('path');
 module.exports = appInfo => {
     let config = {
-    middleware: ['gzip','history','toLower'],
+        middleware: ['gzip', 'history', 'toLower'],
         keys: appInfo.name + '_1504144548125_2940',
         sequelize: require("./config.db"),
         view: {
@@ -12,6 +12,8 @@ module.exports = appInfo => {
             },
         },
         static: {
+            prefix: "/",
+            dir: [path.join(appInfo.baseDir, 'app/public'), path.join(appInfo.baseDir, 'app/view')],
             dynamic: true,
             preload: false,
             maxAge: 31536000,
