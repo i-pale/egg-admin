@@ -6,7 +6,6 @@ module.exports = app => {
        this.ctx.body="test";
       }*
       list() {
-          console.log("asf");
         this.success("fsafsa");
       }
   }

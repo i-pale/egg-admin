@@ -22,9 +22,6 @@ var proxyTable = config.dev.proxyTable
 
 var app = express()
 var compiler = webpack(webpackConfig)
-try{
-
-
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
@@ -64,7 +61,6 @@ app.use(hotMiddleware)
 
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
-
 app.use(staticPath, express.static('./static'))
 
 var uri = 'http://localhost:' + port
@@ -85,9 +81,7 @@ devMiddleware.waitUntilValid(() => {
 })
 
 var server = app.listen(port)
-}catch(e){
-  throw new Error(e);
-}
+
 module.exports = {
   ready: readyPromise,
   close: () => {

@@ -2,7 +2,7 @@ module.exports = {
   Initialization: function (app) {
     let Encrypt = require('../../lib/util').Encrypt;
     app.beforeStart(function* () {
-      //app = yield require("../../webroot/build/egg")(app);
+      yield require("../../resources")(app);
       yield app.model.sync({
         force: true
       });
@@ -145,7 +145,7 @@ module.exports = {
           result,
         };
       }
-      *view(model) {
+      *view(model={}) {
         yield this.ctx.render('index.html', model);
       }
       err(message) {
