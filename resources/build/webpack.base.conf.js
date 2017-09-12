@@ -8,7 +8,8 @@ function resolve (dir) {
 }
 module.exports = {
   entry: {
-    app: './resources/src/main.js',
+    vendor:'./resources/src/vendors',
+    main: './resources/src/main'
   },
   output: {
     path: config.build.assetsRoot,
